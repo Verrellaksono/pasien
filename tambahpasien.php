@@ -28,10 +28,10 @@
                     <div class="form-group">
                         <label for="jk">Jenis Kelamin</label>
                         <div class="form-check">
-                            <input type="radio" class="form-check-input" name="jk" value="perempuan"> Perempuan
+                            <input type="radio" class="form-check-input" name="jk" value="Perempuan"> Perempuan
                         </div>
                         <div class="form-check">
-                            <input type="radio" class="form-check-input" name="jk" value="laki-laki"> Laki-laki
+                            <input type="radio" class="form-check-input" name="jk" value="Laki-Laki"> Laki-laki
                         </div>
                         <div class="form-group mt-3">
                             <label for="alamat">Alamat</label>

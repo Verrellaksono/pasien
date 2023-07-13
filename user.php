@@ -24,7 +24,7 @@
                             <a class="nav-link" aria- current="page" href="#">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Pasien</a>
+                            <a class="nav-link active" href="pasien.php">Pasien</a>
                         </li>
                         <?php
                         session_start();
@@ -34,7 +34,6 @@
                                 <a class="nav-link active" href="user.php">User</a>
                             </li>
                         <?php } ?>
-
                     </ul>
                     <a href="logout.php" class="btn btn-danger btn-large">Logout</a>
                 </div>
@@ -42,56 +41,55 @@
         </nav>
         <div class="row mt-3">
             <div class="col-sm">
-                <h3>Tabel Pasien</h3>
+                <h3>Tabel User</h3>
             </div>
         </div>
+
         <?php
 
         if ($_SESSION['status'] === 'Administrator') { ?>
             <div class="row">
                 <div class="col">
-                    <a href="tambahpasien.php" class="btn btn-primary d-flex justify-content-center">Tambah Data</a>
+                    <a href="tambahuser.php" class="btn btn-primary d-flex justify-content-center">Tambah User</a>
                 </div>
             </div>
         <?php } ?>
 
+
         <div class="row mt-3">
             <div class="col">
-
                 <table class="table table-striped table-hover table-sm">
-
                     <tr class="text-center">
-                        <th>No</th>
-                        <th>ID Pasien</th>
-                        <th>Nama Pasien</th>
-                        <th>Jenis Kelamin</th>
-                        <th>Alamat</th>
-                        <?php if ($_SESSION['status'] === 'Administrator') { ?>
+                        <th>ID User</th>
+                        <th>Nama User</th>
+                        <th>Status</th>
+                        <th>Password</th>
+                        <?php
+                        if ($_SESSION['status'] === 'Administrator') { ?>
                             <th>Action</th>
                         <?php } ?>
                     </tr>
                     <?php
                     include 'koneksi.php';
-                    $no = 1;
-                    $hasil = $koneksi->query("SELECT * FROM pasien");
+                    $hasil = $koneksi->query("SELECT * FROM users");
                     while ($row = $hasil->fetch_assoc()) {
                     ?>
                         <tr class="text-center">
-                            <td><?= $no++; ?></td>
-                            <td><?= $row['idPasien']; ?></td>
-                            <td><?= $row['nmPasien']; ?></td>
-                            <td><?= $row['jk']; ?></td>
-                            <td><?= $row['alamat']; ?></td>
-                            <?php if ($_SESSION['status'] === 'Administrator') { ?>
+                            <td><?= $row['idUser']; ?></td>
+                            <td><?= $row['nmUser']; ?></td>
+                            <td><?= $row['status']; ?></td>
+                            <td><?= md5($row['password']) ?></td>
+                            <?php
+                            if ($_SESSION['status'] === 'Administrator') { ?>
                                 <td>
-                                    <a href="editpasien.php?edit=<?= $row['idPasien']; ?>" class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="editUser.php?edit=<?= $row['idUser']; ?>" class="btn btn-warning btn-sm">Edit</a>
                                     <!-- Button trigger modal alert -->
-                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#hapusData<?= $row['idPasien']; ?>">
+                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#hapusData<?= $row['idUser']; ?>">
                                         Hapus
                                     </button>
 
                                     <!-- Modal Alert -->
-                                    <div class="modal fade" id="hapusData<?= $row['idPasien']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal fade" id="hapusData<?= $row['idUser']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -100,7 +98,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                    <a href="koneksi.php?idPasien=<?= $row['idPasien']; ?>" type="button" class="btn btn-danger">Hapus</a>
+                                                    <a href="userAction.php?idUser=<?= $row['idUser']; ?>" type="button" class="btn btn-danger">Hapus</a>
                                                 </div>
                                             </div>
                                         </div>
