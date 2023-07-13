@@ -36,6 +36,17 @@
                 <h3>Tabel Pasien</h3>
             </div>
         </div>
+        <?php
+        session_start();
+
+        if ($_SESSION['status'] === 'Administrator') { ?>
+            <div class="row">
+                <div class="col">
+                    <a href="tambahpasien.php" class="btn btn-primary  d-flex justify-content-center">Tambah Data</a>
+                </div>
+            </div>
+        <?php } ?>
+
         <div class="row mt-3">
             <div class="col">
 
@@ -63,29 +74,31 @@
                             <td><?= $row['nmPasien']; ?></td>
                             <td><?= $row['jk']; ?></td>
                             <td><?= $row['alamat']; ?></td>
-                            <td>
-                                <a href="editpasien.php?edit=<?= $row['idPasien']; ?>" class="btn btn-warning btn-sm">Edit</a>
-                                <!-- Button trigger modal alert -->
-                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#hapusData<?= $row['idPasien']; ?>">
-                                    Hapus
-                                </button>
+                            <?php if ($_SESSION['status'] === 'Administrator') { ?>
+                                <td>
+                                    <a href="editpasien.php?edit=<?= $row['idPasien']; ?>" class="btn btn-warning btn-sm">Edit</a>
+                                    <!-- Button trigger modal alert -->
+                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#hapusData<?= $row['idPasien']; ?>">
+                                        Hapus
+                                    </button>
 
-                                <!-- Modal Alert -->
-                                <div class="modal fade" id="hapusData<?= $row['idPasien']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Yakin Ingin Menghapus Data</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                <a href="koneksi.php?idPasien=<?= $row['idPasien']; ?>" type="button" class="btn btn-danger">Hapus</a>
+                                    <!-- Modal Alert -->
+                                    <div class="modal fade" id="hapusData<?= $row['idPasien']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Yakin Ingin Menghapus Data</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                    <a href="koneksi.php?idPasien=<?= $row['idPasien']; ?>" type="button" class="btn btn-danger">Hapus</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </td>
+                                </td>
+                            <?php } ?>
                         </tr>
                     <?php } ?>
                 </table>
